@@ -16,6 +16,13 @@ public class PlanetDto extends BaseDto<PlanetDto, Planet> {
     @NotBlank(message = "{nome.not.blank}")
     private String clima;
 
+    public PlanetDto(String id, String nome, String terreno, String clima) {
+        this.id = id;
+        this.nome = nome;
+        this.terreno = terreno;
+        this.clima = clima;
+    }
+
     public String getId() {
         return this.id;
     }

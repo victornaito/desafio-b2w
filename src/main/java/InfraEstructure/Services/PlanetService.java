@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 public class PlanetService implements IPlanetService {
 
-    final IPlanetRepository planetRepository;
+    private IPlanetRepository planetRepository;
 
     @Autowired
     public PlanetService(IPlanetRepository planetRepository) {
@@ -67,7 +67,7 @@ public class PlanetService implements IPlanetService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.USER_AGENT, "Application");
         final HttpEntity httpEntity = new HttpEntity(httpHeaders);
-        ResponseEntity<Film> response = null;
+        ResponseEntity<Film> response;
 
         try {
             response = restTemplate.exchange(PlanetUtils.getPlanetsResource() + planetId,

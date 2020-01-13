@@ -1,8 +1,10 @@
 package CoreDomain.Entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Data
 @Document(collection = "planet")
 public class Planet extends BaseEntity {
 
@@ -23,6 +25,15 @@ public class Planet extends BaseEntity {
         this.nome = nome;
         this.clima = clima;
         this.terreno = terreno;
+    }
+
+    public Planet(String id, String nome, String clima, String terreno, int quantidadeAparicoesEmFilmes) {
+        super();
+        this.id = id;
+        this.nome = nome;
+        this.clima = clima;
+        this.terreno = terreno;
+        this.quantidadeAparicoesEmFilmes = quantidadeAparicoesEmFilmes;
     }
 
     public Planet(String nome, String clima, String terreno) {
