@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface IPlanetRepository extends MongoRepository<Planet, String> {
-    @Query("nome: ?0")
+    @Query("{ nome: ?0 }")
     public List<Planet> getByName(String nome);
 }
