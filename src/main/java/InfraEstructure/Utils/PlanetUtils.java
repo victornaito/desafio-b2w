@@ -1,4 +1,4 @@
-package main.Infraestructure.Services.Utils;
+package InfraEstructure.Utils;
 
 public abstract class PlanetUtils {
 

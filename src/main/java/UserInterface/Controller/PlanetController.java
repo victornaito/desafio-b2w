@@ -1,8 +1,8 @@
-package main.UserInterface.Controller;
+package UserInterface.Controller;
 
-import Dtos.PlanetDto;
-import Entity.Planet;
-import Services.IPlanetService;
+import CoreDomain.Dtos.PlanetDto;
+import CoreDomain.Entity.Planet;
+import CoreDomain.Services.IPlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/planets", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/planets/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PlanetController {
 
     private final IPlanetService planetService;
@@ -21,6 +22,7 @@ public class PlanetController {
     public PlanetController(IPlanetService planetService) {
         this.planetService = planetService;
     }
+
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity save(@RequestBody @Valid PlanetDto planetDto) {
@@ -37,16 +39,25 @@ public class PlanetController {
         return new ResponseEntity(this.planetService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/nome/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findByNome(@PathVariable String nome) {
         return new ResponseEntity(this.planetService.findByName(nome), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteById(@PathVariable String planetId) {
-        String id = this.planetService.deleteById(planetId);
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity findById(@PathVariable String id) {
+        Optional<Planet> planet = this.planetService.findById(id);
 
-        if (id.isEmpty())
+        if (planet.isPresent())
+            return new ResponseEntity(planet, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteById(@PathVariable String id) {
+        final String planetId = this.planetService.deleteById(id);
+
+        if (planetId.isEmpty())
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return new ResponseEntity(id, HttpStatus.OK);
     }

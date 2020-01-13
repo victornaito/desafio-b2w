@@ -1,4 +1,4 @@
-package main.CoreDomain.Entity;
+package CoreDomain.Entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

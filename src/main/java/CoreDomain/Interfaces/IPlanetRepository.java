@@ -1,6 +1,6 @@
-package Interfaces;
+package CoreDomain.Interfaces;
 
-import Entity.Planet;
+import CoreDomain.Entity.Planet;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

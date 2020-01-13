@@ -1,13 +1,13 @@
-package Services;
+package CoreDomain.Services;
 
-import Dtos.PlanetDto;
-import Entity.Planet;
-import org.springframework.stereotype.Service;
+import CoreDomain.Dtos.PlanetDto;
+import CoreDomain.Entity.Planet;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 public interface IPlanetService {
     Optional<Planet> findById(String id);
     String deleteById(String id);

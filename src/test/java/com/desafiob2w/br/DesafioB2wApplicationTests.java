@@ -1,4 +1,4 @@
-package com.desafiob2w.br.desafiob2w;
+package com.desafiob2w.br;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package main.CoreDomain.Entity;
+package CoreDomain.Entity;
 
 import org.springframework.data.annotation.Id;
 

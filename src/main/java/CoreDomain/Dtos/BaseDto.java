@@ -1,4 +1,4 @@
-package Dtos;
+package CoreDomain.Dtos;
 
 public abstract class BaseDto<DTO, Entidade> {
     public String id;

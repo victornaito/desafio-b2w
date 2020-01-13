@@ -1,21 +1,24 @@
-package Services;
+package InfraEstructure.Services;
 
-import Dtos.PlanetDto;
-import Entity.Planet;
-import Interfaces.IPlanetRepository;
-import main.CoreDomain.Entity.Film;
-import main.Infraestructure.Services.Utils.PlanetUtils;
+import CoreDomain.Dtos.PlanetDto;
+import CoreDomain.Entity.Film;
+import CoreDomain.Entity.Planet;
+import CoreDomain.Interfaces.IPlanetRepository;
+import CoreDomain.Services.IPlanetService;
+import InfraEstructure.Utils.PlanetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PlanetService implements IPlanetService {
 
     final IPlanetRepository planetRepository;
@@ -33,6 +36,8 @@ public class PlanetService implements IPlanetService {
 
     public String deleteById(String id) {
         Optional<Planet> planet = this.planetRepository.findById(id);
+        if (planet.isPresent())
+            this.planetRepository.deleteById(id);
         return planet.isPresent() ? planet.get().getId() : "";
     }
 
@@ -41,14 +46,19 @@ public class PlanetService implements IPlanetService {
     }
 
     public List<Planet> findByName(String nome) {
-        List<Planet> planets = this.planetRepository.getByName((nome));
-        planets.stream().forEach(planet -> this.getFilmCounterFromPlanetId((planet.getId())));
+        List<Planet> planets = this.planetRepository.getByName(nome);
+        this.updateQuantidadeAparicoesEmFilmesPlanet(planets);
         return planets;
     }
 
     public List<Planet> findAll() {
         List<Planet> planets = this.planetRepository.findAll();
-        planets.stream().forEach(planet -> this.getFilmCounterFromPlanetId((planet.getId())));
+        this.updateQuantidadeAparicoesEmFilmesPlanet(planets);
+        return planets;
+    }
+
+    private List<Planet> updateQuantidadeAparicoesEmFilmesPlanet(List<Planet> planets) {
+        planets.stream().forEach(planet -> planet.setQuantidadeAparicoesEmFilmes(this.getFilmCounterFromPlanetId((planet.getId()))));
         return planets;
     }
 

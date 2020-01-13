@@ -1,10 +1,10 @@
-package Entity;
+package CoreDomain.Entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "planet")
-public class Planet extends main.CoreDomain.Entity.BaseEntity {
+public class Planet extends BaseEntity {
 
     @JsonProperty
     private String nome;

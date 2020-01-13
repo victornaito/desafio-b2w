@@ -1,6 +1,6 @@
-package Dtos;
+package CoreDomain.Dtos;
 
-import Entity.Planet;
+import CoreDomain.Entity.Planet;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
